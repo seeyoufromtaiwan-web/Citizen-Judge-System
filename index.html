@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國民法官真的判得比較重嗎？</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c3a5e; --navy-2:#2b4f7a; --ink:#1f2328; --muted:#5b6470; --line:#e2e6eb;
+    --bg:#f6f7f9; --card:#fff; --radius-tag:6px; --red:#a3262a; --blue:#2c5fa8; --grey:#8a8f96;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;font-size:16.5px}
+  a{color:var(--navy-2)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header.hero{background:var(--navy);color:#fff;padding:44px 0 40px}
+  .conf{display:inline-block;font-size:16.5px;font-weight:500;letter-spacing:.06em;background:rgba(255,255,255,.12);padding:5px 14px;border-radius:var(--radius-tag);margin-bottom:18px}
+  h1{font-size:clamp(30px,5vw,48px);font-weight:700;line-height:1.25;margin:0 0 10px}
+  .subtitle{font-size:clamp(18px,2.4vw,24px);font-weight:500;margin:0 0 24px;color:#dbe5f1}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;color:#cfdbea}
+  .meta b{color:#fff;font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tags span{font-size:13.5px;border:1px solid rgba(255,255,255,.35);border-radius:var(--radius-tag);padding:2px 10px;cursor:default}
+  .tags span:hover{background:rgba(255,255,255,.2)}
+
+  /* Nav */
+  nav.toc{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:4px;overflow-x:auto}
+  nav.toc a{flex:none;text-decoration:none;color:var(--muted);font-size:15px;font-weight:500;padding:14px 14px;border-bottom:3px solid transparent}
+  nav.toc a:hover{color:var(--navy);border-bottom-color:var(--navy)}
+
+  /* Summary */
+  .summary{margin:36px auto 8px}
+  .summary h2{font-size:15px;letter-spacing:.08em;color:var(--muted);margin:0 0 12px;font-weight:500}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px}
+  .kpi .num{font-size:32px;font-weight:900;color:var(--navy);line-height:1.1}
+  .kpi .num small{font-size:16px;font-weight:500;color:var(--muted)}
+  .kpi p{margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--muted)}
+  .kpi a{font-size:13px;text-decoration:none}
+
+  /* Sections */
+  section.block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:36px 40px;margin:28px 0}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:24px}
+  .sec-head h2{margin:0;font-size:26px;color:var(--navy);font-weight:700}
+  .sec-head .en{font-size:16px;color:var(--muted);font-weight:500}
+  h3{font-size:19px;margin:30px 0 10px;color:var(--ink)}
+  h3:first-child{margin-top:0}
+  p{margin:0 0 14px}
+  .note{font-size:14px;color:var(--muted)}
+
+  /* Research questions */
+  ol.rq{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;counter-reset:rq}
+  ol.rq li{counter-increment:rq;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:#f1f4f8;border-radius:8px;padding:14px 16px}
+  ol.rq li::before{content:"Q" counter(rq);font-weight:900;color:#fff;background:var(--navy);border-radius:6px;text-align:center;line-height:34px;height:34px;font-size:15px}
+  ol.rq .go{display:block;font-size:13.5px;margin-top:2px}
+
+  /* Data stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 18px}
+  .stat{border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  .stat .n{font-size:24px;font-weight:700;color:var(--navy)}
+  .stat .l{font-size:13.5px;color:var(--muted);line-height:1.5}
+  .samples{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .sample{border-left:4px solid var(--navy-2);background:#f7f9fb;padding:14px 18px;border-radius:0 8px 8px 0}
+  .sample h4{margin:0 0 6px;font-size:16px}
+  .sample p{margin:0;font-size:15px}
+
+  table.groups{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:15px}
+  table.groups th,table.groups td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  table.groups th{font-size:13px;color:var(--muted);font-weight:500}
+  table.groups td.n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+  .g{display:inline-block;font-size:12px;font-weight:700;color:#fff;border-radius:4px;padding:1px 7px;margin-right:8px}
+  .g0{background:#111}.g1{background:var(--red)}.g2{background:var(--blue)}.g3{background:var(--grey)}.g4{background:#bdb8ae;color:#222}
+
+  ol.methods{padding-left:0;list-style:none;counter-reset:m;margin:0}
+  ol.methods li{counter-increment:m;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line)}
+  ol.methods li:last-child{border-bottom:0}
+  ol.methods li::before{content:counter(m,lower-alpha);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;background:#e7edf5;color:var(--navy);font-weight:700;text-align:center;line-height:26px;font-size:14px}
+  ol.methods b{font-weight:700}
+
+  /* Figures */
+  figure{margin:22px 0;border:1px solid var(--line);border-radius:10px;padding:16px;background:#fff}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{text-align:center;font-size:14.5px;color:var(--muted);margin-top:10px}
+
+  /* Findings */
+  .finding{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px 0;border-top:1px solid var(--line)}
+  .finding:first-of-type{border-top:0;padding-top:4px}
+  .finding .idx{font-size:28px;font-weight:900;color:var(--navy);line-height:1}
+  .finding .rqtag{display:inline-block;font-size:12.5px;color:var(--navy-2);background:#e7edf5;border-radius:4px;padding:1px 8px;margin-bottom:6px}
+  .finding h3{margin:0 0 10px;font-size:20px}
+  .hl{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 14px}
+  .hl div{background:#f7f9fb;border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:14px;color:var(--muted)}
+  .hl b{display:block;font-size:20px;color:var(--ink)}
+  .hl .r b{color:var(--red)} .hl .bl b{color:var(--blue)}
+
+  .concl{display:grid;gap:14px}
+  .concl .item{border:1px solid var(--line);border-radius:10px;padding:18px 22px}
+  .concl .item h3{margin:0 0 6px;font-size:18px}
+  .concl .item p{margin:0}
+  .concl .main{background:var(--navy);border-color:var(--navy);color:#fff}
+  .concl .main h3{color:#fff}
+  .concl .main p{color:#e3eaf3;font-size:17px}
+
+  footer{background:var(--navy);color:#cfdbea;padding:28px 0;margin-top:40px;font-size:14px}
+  footer b{color:#fff}
+
+  @media (max-width:820px){
+    .kpis,.stats{grid-template-columns:1fr 1fr}
+    .samples{grid-template-columns:1fr}
+    section.block{padding:26px 20px}
+    .finding{grid-template-columns:1fr;gap:6px}
+  }
+  @media (max-width:480px){ .kpis{grid-template-columns:1fr} table.groups td.desc{display:none} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="conf">2026 第五屆 司法心理學國際研討會</div>
+    <h1>國民法官真的判得比較重嗎？</h1>
+    <p class="subtitle">國民法官法第 6 條之案件分流與殺人既遂量刑的再檢視</p>
+    <div class="meta">
+      <span>作者　<b>林思妤</b>｜個人研究</span>
+      <span>Email　<b>seeyoufromtaiwan@gmail.com</b></span>
+    </div>
+    <div class="tags"><span>國民法官</span><span>殺人既遂</span><span>量刑</span><span>案件分流</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="章節導覽">
+  <div class="wrap">
+    <a href="#summary">重點摘要</a>
+    <a href="#objectives">壹、研究目的</a>
+    <a href="#methods">貳、研究方法</a>
+    <a href="#results">參、研究結果與討論</a>
+    <a href="#conclusion">肆、結論</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 重點摘要 -->
+  <div class="summary" id="summary">
+    <h2>重點摘要</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="num">41.0<small>%</small></div><p>國審組殺人既遂有罪者，宣告無期徒刑以上的比例（舊制基準 23.5%）</p><a href="#r2">→ 結果二</a></div>
+      <div class="kpi"><div class="num">85<small>%</small></div><p>裁定不行國審的案件中，由辯方單獨聲請的比例</p><a href="#r1">→ 結果一</a></div>
+      <div class="kpi"><div class="num">+6.2<small> pp</small></div><p>DiD 估計的整體重刑比例變化，未達顯著；上升集中於國審、下降集中於退出</p><a href="#r3">→ 結果三</a></div>
+      <div class="kpi"><div class="num">16<small>%</small></div><p>原始量刑差距中，可由可觀察案件特徵解釋的比例</p><a href="#r4">→ 結果四</a></div>
+    </div>
+  </div>
+
+  <!-- 壹 -->
+  <section class="block" id="objectives">
+    <div class="sec-head"><h2>壹、研究目的</h2><span class="en">Research Objectives</span></div>
+
+    <h3>制度背景</h3>
+    <p>民國 112 年 1 月 1 日起國民法官制度施行。依《國民法官法》第 5 條，故意犯罪致死等案件應行國民參與審判；但第 6 條允許法院因被告認罪（第 4 款）、案情繁雜（第 3 款）、顯不適當（第 5 款）等事由裁定不行國民參與審判，改由職業法官審判。</p>
+
+    <h3>問題意識</h3>
+    <p>初步資料顯示，殺人既遂案件中，國審宣告無期徒刑以上者約佔 40%，而同時期職業法官審理僅佔 15%，直覺上容易認為「國民法官判得更重」。然而「同時期職業法官審理案件」其實混合了不同來源，例如依第 6 條退出國審者、制度施行前繫屬的舊制尾案、不曾進入國民法官審理制度者，均非隨機分派。</p>
+    <p>目前較少以國審判決進行量刑與案件分流的量化研究。對比日本裁判員制度十年總括顯示量刑「雙向變寬」，但其變化發生於裁判員法庭內部；臺灣則多了第 6 條這道分流關卡，結構並不相同。</p>
+
+    <h3>研究問題</h3>
+    <p>本研究從「國民法官是否判得重」發想，詢問三個問題：</p>
+    <ol class="rq">
+      <li><div>哪些案件退出了國民參與審判制度？<a class="go" href="#r1">→ 見結果一</a></div></li>
+      <li><div>國審施行後，殺人既遂案件的重刑比例是否改變？改變集中在哪一條程序？<a class="go" href="#r2">→ 見結果二、三</a></div></li>
+      <li><div>若控制起訴時已存在的案件特徵後，國審與職業法官審判案件的重刑比例差距還剩多少？<a class="go" href="#r4">→ 見結果四、五</a></div></li>
+    </ol>
+  </section>
+
+  <!-- 貳 -->
+  <section class="block" id="methods">
+    <div class="sec-head"><h2>貳、研究方法</h2><span class="en">Methods</span></div>
+
+    <h3>一、資料</h3>
+    <p>下載司法院公開裁判書，建立裁判書資料庫，並將每一件國審案件的聲請裁定、國審判決與一般程序判決串連。</p>
+    <div class="stats">
+      <div class="stat"><div class="n">約 250 萬</div><div class="l">筆刑事裁判<br>2019/01 – 2026/08</div></div>
+      <div class="stat"><div class="n">537 件</div><div class="l">國審適格案件<br>截至 2026/08/31</div></div>
+      <div class="stat"><div class="n">212 / 243</div><div class="l">依第 6 條全案退出 ／<br>國審已判決</div></div>
+      <div class="stat"><div class="n">82 件</div><div class="l">仍在審理中</div></div>
+    </div>
+
+    <div class="samples">
+      <div class="sample">
+        <h4>分流分析樣本</h4>
+        <p>全部國審適格案件（所有起訴罪名），用以回答「哪些案件退出國審」。</p>
+      </div>
+      <div class="sample">
+        <h4>量刑分析樣本｜N = 392</h4>
+        <p>單一被告、起訴罪名為殺人既遂（刑法第 271 條第 1 項）、2019 年 1 月至 2026 年 8 月之一審判決。</p>
+      </div>
+    </div>
+
+    <h3>量刑分析的五個分組</h3>
+    <p>依案件審理程序分為五組：</p>
+    <table class="groups">
+      <thead><tr><th>組別</th><th class="desc">繫屬與判決</th><th style="text-align:right">人數</th></tr></thead>
+      <tbody>
+        <tr><td><span class="g g0">G0</span>舊制</td><td class="desc">施行前繫屬，職業法官審判｜比較基準</td><td class="n">226</td></tr>
+        <tr><td><span class="g g1">G1</span>國審</td><td class="desc">國民法官法庭判決</td><td class="n">84</td></tr>
+        <tr><td><span class="g g2">G2</span>第 6 條退出</td><td class="desc">原應國審，裁定退出後由職業法官審判</td><td class="n">25</td></tr>
+        <tr><td><span class="g g3">G3</span>舊制尾案</td><td class="desc">施行前繫屬、施行後由職業法官判決</td><td class="n">45</td></tr>
+        <tr><td><span class="g g4">G4</span>新制非國審</td><td class="desc">施行後繫屬，查無分流紀錄</td><td class="n">12</td></tr>
+      </tbody>
+    </table>
+    <figure>
+      <img src="fig2.jpg" alt="圖2：五組審理程序的繫屬與判決期間示意，以 2023/1/1 國審施行為分界。">
+    </figure>
+
+    <h3>二、分析</h3>
+    <ol class="methods">
+      <li><b>各組重刑比例：</b>計算各組重刑比例，並以信賴區間呈現誤差範圍。</li>
+      <li><b>用舊制標準預測刑度：</b>以舊制案件建立預測模型，估計每個人「照以前的標準」被判無期以上的機率，再與實際結果比較（觀察／預期比，O/E）；O/E 大於 1 表示比舊標準重。</li>
+      <li><b>與殺人未遂對照：</b>比較施行前後殺人既遂與殺人未遂的變化差（差異中差異，DiD），扣除同時期的整體量刑趨勢。</li>
+      <li><b>只看認罪的被告：</b>比較認罪後留在國審與退出國審的兩群人。</li>
+      <li><b>變項擷取：</b>由程式從判決書自動擷取變項，並經人工驗證（κ = 0.75）。</li>
+    </ol>
+  </section>
+
+  <!-- 參 -->
+  <section class="block" id="results">
+    <div class="sec-head"><h2>參、研究結果與討論</h2><span class="en">Result &amp; Discussion</span></div>
+
+    <article class="finding" id="r1">
+      <div class="idx">01</div>
+      <div>
+        <span class="rqtag">回應 Q1</span>
+        <h3>退出國審的比例高，且並非隨機</h3>
+        <div class="hl">
+          <div>112 年繫屬<b>40.7%</b></div>
+          <div>113 年繫屬<b>41.4%</b></div>
+          <div>114 年繫屬<b>44.7%</b></div>
+          <div>辯方單獨聲請<b>85%</b></div>
+        </div>
+        <p>民國 112、113 及 114 年繫屬的案件，分別有 40.7%、41.4%、44.7% 退出國審。2026 年繫屬者至 8 月底為 26.8%，因多數尚在審理，僅為下限。裁定不行國審的 221 件中，有 188 件由辯方單獨聲請（佔 85%）。</p>
+        <p>退出事由以第 6 條第 4 款「被告認罪」124 件、第 5 款「顯不適當」113 件、第 3 款「案情繁雜」59 件為主（一件可援引多款）；第 1 款「難期公正」與第 2 款「國民法官有受危害之虞」均無准許案例。</p>
+        <figure>
+          <img src="fig1.jpg" alt="圖1：2023/1–2026/8 單一被告案件 253 件中，裁定退出 172 件（68.0%）、駁回仍行國審 81 件（32.0%）；起訴殺人罪 81 件中，退出 57 件（70.4%）、駁回 24 件（29.6%）。">
+        </figure>
+      </div>
+    </article>
+
+    <article class="finding" id="r2">
+      <div class="idx">02</div>
+      <div>
+        <span class="rqtag">回應 Q2</span>
+        <h3>各組重刑比例：兩端都偏離基準</h3>
+        <div class="hl">
+          <div class="r">國審<b>41.0%</b></div>
+          <div>舊制基準<b>23.5%</b></div>
+          <div>舊制尾案<b>17.1%</b></div>
+          <div class="bl">第 6 條退出<b>8.3%</b></div>
+        </div>
+        <p>在被判殺人既遂成立者當中，宣告無期徒刑以上的比例，國審為 41.0%，高於舊制基準 23.5% 與舊制尾案 17.1%；第 6 條退出國審者則低於基準，為 8.3%。</p>
+        <p>由於各組定罪率不同（國審 93%、舊制 79%），另以全體被起訴者為分母重新計算，國審為 38.1%、舊制為 18.6%，國審仍較高。</p>
+        <figure>
+          <img src="fig3.jpg" alt="圖3：有罪者中宣告無期徒刑以上比例：G0 舊制 23.5%（n=226）、G1 國審 41.0%（n=84）、G2 第6條退出 8.3%（n=25）、G3 舊制尾案 17.1%（n=45）、G4 新制非國審 12.5%（n=12），細線為 95% Wilson 信賴區間。">
+        </figure>
+      </div>
+    </article>
+
+    <article class="finding" id="r3">
+      <div class="idx">03</div>
+      <div>
+        <span class="rqtag">回應 Q2</span>
+        <h3>制度整體平均未變，分布兩端重分配</h3>
+        <div class="hl">
+          <div>DiD 整體<b>+6.2 pp</b></div>
+          <div class="r">國審部分<b>+12.4</b></div>
+          <div class="bl">退出部分<b>−6.5</b></div>
+        </div>
+        <p>以殺人未遂為對照的 DiD，無期以上比例變化 +6.2 個百分點（95% CI −4.6～+17.1），未達顯著。拆開後，國審案件部分 +12.4、退出案件部分 −6.5：重刑的上升集中於國審，輕刑的上升集中於退出。</p>
+      </div>
+    </article>
+
+    <article class="finding" id="r4">
+      <div class="idx">04</div>
+      <div>
+        <span class="rqtag">回應 Q3</span>
+        <h3>可觀察特徵只解釋原始差距的 16%</h3>
+        <div class="hl">
+          <div class="r">國審 O/E<b>1.47</b>0.98–2.05</div>
+          <div class="bl">第 6 條退出 O/E<b>0.43</b></div>
+          <div>舊制尾案 O/E<b>0.66</b>0.25–0.99</div>
+        </div>
+        <p>國審 O/E = 1.47（0.98–2.05），第 6 條退出為 0.43，舊制尾案則為 0.66（0.25–0.99）。舊制尾案雖同為職業法官審判，卻顯著低於預期刑期，可能代表 2023 年起職業法官的量刑標準已經改變，量刑差距不能全部歸因於國民法官。</p>
+      </div>
+    </article>
+
+    <article class="finding" id="r5">
+      <div class="idx">05</div>
+      <div>
+        <span class="rqtag">回應 Q3</span>
+        <h3>法院把較重的認罪案留在國審</h3>
+        <div class="hl">
+          <div class="r">認罪・留在國審<b>55%</b></div>
+          <div class="bl">認罪・退出國審<b>8%</b></div>
+        </div>
+        <p>認罪但留在國審者遭判無期徒刑以上的比例為 55%，認罪且退出國審者只有 8%；可能的原因是續行國審的認罪案件手段殘忍、惡性較高、公益性質更高。</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- 肆 -->
+  <section class="block" id="conclusion">
+    <div class="sec-head"><h2>肆、結論</h2><span class="en">Discussion &amp; Conclusion</span></div>
+    <div class="concl">
+      <div class="item main">
+        <h3>結論</h3>
+        <p>國審施行後，殺人既遂量刑平均未見明顯改變，但兩端拉開：留在國審的更重，退出的更輕。此重分配主要來自非隨機的程序分流，評估國審量刑應將第 6 條分流納入設計。</p>
+      </div>
+      <div class="item">
+        <h3>不能主張國審與量刑之因果關係</h3>
+        <p>可觀察特徵只解釋原始差距的 16%，其餘可能來自未測量的案件嚴重程度、時期效果（同期職業法官亦判較輕），或審判者本身，現有資料無法區分。</p>
+      </div>
+      <div class="item">
+        <h3>研究限制</h3>
+        <p>資料來源限於公開裁判書；未公開之案件，例如家暴、兒少或保護當事人等案件，均無法納入計算。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>國民法官真的判得比較重嗎？</b>　林思妤｜個人研究 · 2026 第五屆司法心理學國際研討會<br>
+    資料來源：司法院公開裁判書（2019/01 – 2026/08）
+  </div>
+</footer>
+
+</body>
+</html>
